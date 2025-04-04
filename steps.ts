@@ -1,11 +1,33 @@
+import { ReactNode } from "react";
+
+type BasicInfoAnswers = {
+  name: string;
+  age: number;
+  gender: string;
+  height: number;
+  weight: number;
+  body_type: string;
+  neck: number;
+  waist: number;
+  hip: number;
+  is_fat_accurate: boolean | null;
+};
+
+type FitGoalAnswers = {
+  fitness_goal: string;
+  workout_days: number;
+  activity: string;
+};
+
 type StepType = {
   id: string;
   icon: string;
   title: string;
   description: string;
-  component: React.ReactNode | null;
-  answers: {};
+  component: ReactNode | null;
+  answers: BasicInfoAnswers | FitGoalAnswers;
 };
+
 const steps_list: StepType[] = [
   {
     id: "BasicInfoCard",

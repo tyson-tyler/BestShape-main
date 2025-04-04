@@ -1,3 +1,11 @@
+type StepType = {
+  id: string;
+  icon: string;
+  title: string;
+  description: string;
+  component: React.ReactNode | null;
+  answers: {};
+};
 const steps_list: StepType[] = [
   {
     id: "BasicInfoCard",

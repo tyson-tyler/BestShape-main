@@ -44,6 +44,7 @@ export default function Home() {
     try {
       setIsLoading(true);
       const response = await getAllAnswers();
+      console.log(response);
     } catch (err) {
       console.log(err);
     }

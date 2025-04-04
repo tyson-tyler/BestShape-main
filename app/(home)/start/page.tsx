@@ -1,35 +1,41 @@
 "use client";
 
-// imports
 import { useContext, useEffect, useState } from "react";
 import { StepsContext } from "@/context/steps";
-import StepBar from "@/components/step_bar";
-import BasicInfoCard from "@/components/basic_info";
-import FitGoal from "@/components/fit_goal";
-import MedicalCard from "@/components/medical";
-import SleepCard from "@/components/sleep";
-import Lifestyle from "@/components/lifestyle";
-import AvailabilityCard from "@/components/availability";
-import DietCard from "@/components/diet";
-import Loader from "@/components/loader";
-import Loading from "@/components/loading";
-import dynamic from "next/dynamic"; // dynamic import
+import dynamic from "next/dynamic"; // dynamic import for components
 import doneAnimation from "@/animations/done.json";
 import waveAnimation from "@/animations/wave.json";
-import Program from "@/components/program";
 import { useRouter } from "next/navigation";
 
-// Dynamically import Lottie for client-side only
+// ❗ Dynamically import ALL UI components to avoid SSR issues
+const StepBar = dynamic(() => import("@/components/step_bar"), { ssr: false });
+const BasicInfoCard = dynamic(() => import("@/components/basic_info"), {
+  ssr: false,
+});
+const FitGoal = dynamic(() => import("@/components/fit_goal"), { ssr: false });
+const MedicalCard = dynamic(() => import("@/components/medical"), {
+  ssr: false,
+});
+const SleepCard = dynamic(() => import("@/components/sleep"), { ssr: false });
+const Lifestyle = dynamic(() => import("@/components/lifestyle"), {
+  ssr: false,
+});
+const AvailabilityCard = dynamic(() => import("@/components/availability"), {
+  ssr: false,
+});
+const DietCard = dynamic(() => import("@/components/diet"), { ssr: false });
+const Loader = dynamic(() => import("@/components/loader"), { ssr: false });
+const Program = dynamic(() => import("@/components/program"), { ssr: false });
+
+// Dynamically import Lottie
 const Lottie = dynamic(() => import("lottie-react"), { ssr: false });
 
 export default function Home() {
-  // variables
   const { step_num, loadComponent, steps_list, getAllAnswers } =
     useContext(StepsContext);
 
   const [is_loading, setIsLoading] = useState<boolean>(false);
 
-  // functions
   useEffect(() => {
     loadComponent("BasicInfoCard", BasicInfoCard);
     loadComponent("FitGoal", FitGoal);
@@ -62,13 +68,12 @@ export default function Home() {
     return <Loader />;
   };
 
-  // returns
   return (
     <div className="w-full px-1 lg:w-3/4 2xl:w-2/4 mx-auto">
       <StepBar generateProgram={generateProgram} is_loading={is_loading} />
       {getStepComponent()}
 
-      {/* Optional: Using Lottie safely below (if needed for animations in page) */}
+      {/* If you want to use Lottie below */}
       {/* {typeof window !== 'undefined' && (
         <Lottie animationData={waveAnimation} loop={true} />
       )} */}
